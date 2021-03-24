@@ -2,3 +2,4 @@ cheat-sheets/
 
 # ignore de carpetas auto-generadas
 __pycache__/
+.vscode/
