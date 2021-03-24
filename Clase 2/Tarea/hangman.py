@@ -2,20 +2,37 @@ from hangman_functions import getRandomWord, displayBoard, getGuess, playAgain
 from language_selector import words
 from pictures import HANGMAN_PICS
 
-print('H A N G M A N')
 
-difficulty = 'X'
-while difficulty not in 'EMH':
-  print('Enter difficulty: E - Easy, M - Medium, H - Hard')
-  difficulty = input().upper()
-if difficulty == 'M':
+def set_medium_difficulty():
+    """"Deletes the 2 levels of the game."""
     del HANGMAN_PICS[8]
     del HANGMAN_PICS[7]
-if difficulty == 'H':
+
+
+def set_hard_difficulty():
+    """"Deletes 4 leves of the game."""
     del HANGMAN_PICS[8]
     del HANGMAN_PICS[7]
     del HANGMAN_PICS[5]
     del HANGMAN_PICS[3]
+
+
+def set_difficulty():
+    """Prompts the user until a valid difficulty is entered and then sets it."""
+    difficulty = 'X'
+    while difficulty not in 'EMH':
+        print('Enter difficulty: E - Easy, M - Medium, H - Hard')
+        difficulty = input().upper()
+
+    if difficulty == 'M':
+        set_medium_difficulty()
+    if difficulty == 'H':
+        set_hard_difficulty()
+        
+
+print('H A N G M A N')
+
+set_difficulty()
 
 missedLetters = ''
 correctLetters = ''

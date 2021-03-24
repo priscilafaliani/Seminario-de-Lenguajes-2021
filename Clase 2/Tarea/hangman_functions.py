@@ -31,22 +31,29 @@ def displayBoard(missedLetters, correctLetters, secretWord):
         print(letter, end=' ')
     print()
 
+
+def is_valid_guess(guess, alreadyGuessed):
+    """Returns True if the guess is a valid input, otherwise returns False & prints the correct error message"""
+    if len(guess) != 1:
+        print('Please enter a single letter.')
+    elif guess in alreadyGuessed:
+        print('You have already guessed that letter. Choose again.')
+    elif guess not in 'abcdefghijklmnopqrstuvwxyz':
+        print('Please enter a LETTER.')
+    else:
+        return True
+    return False
+
+
 def getGuess(alreadyGuessed):
-    # Returns the letter the player entered. This function makes sure the player entered a single letter, and not something else.
+    """Returns a letter (in 'abcdefghijklmnopqrstuvwxyz') entered by the player."""
     while True:
-        print('Guess a letter.')
-        guess = input()
-        guess = guess.lower()
-        if len(guess) != 1:
-            print('Please enter a single letter.')
-        elif guess in alreadyGuessed:
-            print('You have already guessed that letter. Choose again.')
-        elif guess not in 'abcdefghijklmnopqrstuvwxyz':
-            print('Please enter a LETTER.')
-        else:
+        guess = input('Guess a letter: ').lower()
+        if is_valid_guess(guess, alreadyGuessed):
             return guess
 
+
 def playAgain():
-    # This function returns True if the player wants to play again, otherwise it returns False.
+    """returns True if the player wants to play again, otherwise it returns False"""
     print('Do you want to play again? (yes or no)')
     return input().lower().startswith('y')
