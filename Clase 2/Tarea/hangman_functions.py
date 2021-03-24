@@ -1,7 +1,7 @@
 import random
 from pictures import HANGMAN_PICS
 
-def getRandomWord(wordDict):
+def get_random_word(wordDict):
     """This function returns a random string from the passed dictionary of lists of strings, and the key also."""
     
     # First, randomly select a key from the dictionary:
@@ -12,7 +12,7 @@ def getRandomWord(wordDict):
 
     return [wordDict[wordKey][wordIndex], wordKey]
 
-def displayBoard(missedLetters, correctLetters, secretWord):
+def display_board(missedLetters, correctLetters, secretWord):
     print(HANGMAN_PICS[len(missedLetters)])
     print()
 
@@ -45,7 +45,7 @@ def is_valid_guess(guess, alreadyGuessed):
     return False
 
 
-def getGuess(alreadyGuessed):
+def get_guess(alreadyGuessed):
     """Returns a letter (in 'abcdefghijklmnopqrstuvwxyz') entered by the player."""
     while True:
         guess = input('Guess a letter: ').lower()
@@ -53,7 +53,7 @@ def getGuess(alreadyGuessed):
             return guess
 
 
-def playAgain():
+def play_again():
     """returns True if the player wants to play again, otherwise it returns False"""
     print('Do you want to play again? (yes or no)')
     return input().lower().startswith('y')
