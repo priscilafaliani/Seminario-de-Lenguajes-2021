@@ -43,17 +43,25 @@ def player_won():
             return False
     return True
 
+
 def player_lost():
     return len(missed_letters) == len(HANGMAN_PICS) - 1
 
 
 def print_loss_results():
+    # the board is displayed one last time
+    display_board(missed_letters, correct_letters, secret_word)
+
     print('You have run out of guesses!\nAfter ' 
     + str(len(missed_letters)) 
     + ' missed guesses and ' 
     + str(len(correct_letters)) 
     + ' correct guesses, the word was "' 
     + secret_word + '"')
+
+
+def print_win_results():
+    print('Yes! The secret word is "' + secret_word + '"! You have won!')
 
 
 def evaluate_guess():
@@ -85,13 +93,13 @@ def game_ended():
     global missed_letters, correct_letters
 
     if evaluate_guess():
-        print('Yes! The secret word is "' + secret_word + '"! You have won!')
+        print_win_results()
     elif player_lost(): # if evaluation returns false, we need to know why 
-        display_board(missed_letters, correct_letters, secret_word)
         print_loss_results()
     else:
         return False
     return True
+    
 
 print('H A N G M A N')
 
