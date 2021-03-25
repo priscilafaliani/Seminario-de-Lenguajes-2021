@@ -2,7 +2,7 @@ def es_heterograma(palabra):
     caracteres = {}
     
     for car in palabra:
-        if not car in caracteres:
+        if car not in caracteres:
             caracteres[car] = 1
         else:
             return False
