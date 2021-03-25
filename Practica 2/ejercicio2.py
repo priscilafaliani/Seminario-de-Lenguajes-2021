@@ -40,17 +40,17 @@ def update_max(words, word, max):
             word : str
             Key to access the count of the word to be compared with the max
 
-            max : list -> [str(max_word), int(count)]
+            max : dict -> {"word": str(word), "count": int(count)}
             List keeping the (currently) most used word and his appearences
     """
     if word:
-        if words[word] > max[1]:
-            max[0] = word
-            max[1] = words[word]
+        if words[word] > max["count"]:
+            max["word"] = word
+            max["count"] = words[word]
 
 words = {}
 
-max = ['', 0]
+max = {"word": '', "count": 0}
 
 with open('Practica 2\\numpy_readme.txt', 'r') as numpy_readme:
     for line in numpy_readme:
