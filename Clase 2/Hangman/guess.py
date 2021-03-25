@@ -29,7 +29,6 @@ def evaluate_guess(guess, missed_letters, correct_letters, secret_word):
             The function returns False but doesn't specify if the player lost
             or was just another missed letter
     """
-    global missed_letters, correct_letters
 
     if guess in secret_word:
         correct_letters += guess
