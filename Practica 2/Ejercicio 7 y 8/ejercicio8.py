@@ -12,10 +12,6 @@ def interseccion(nombres_a, nombres_b):
     return [nombre for nombre in dict([(nombre, '') for nombre in nombres_a if nombre in nombres_b])]
 
 
-def obtener_lista(str):
-    """Retorna una lista a partir de un string, del cuál obtiene cada dato sin comillas"""
-    return str.replace("'", "").split(", ")
-
 
 def obtener_suma_notas(eval1, eval2):
     """Retorna una lista con forma  [(str(alumno), int(nota)), ..., ....]"""
@@ -37,6 +33,7 @@ def imprimir_alumnos(alumnos):
     for i in range(len(alumnos)):
         imprimir_alumno(i, alumnos[i])
 
+        
 nombres_a = obtener_lista(nombres_a)
 nombres_b = obtener_lista(nombres_b)
 
