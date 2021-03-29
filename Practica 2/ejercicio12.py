@@ -8,12 +8,15 @@ tablero = [
 
 # retorna un nuevo string con la casilla incrementada
 def renovar_string(a_modificar, pos, value):
-    """Recibe un string y sólo modifica el caracter en pos remplazandolo por value
+    """Recibe un string y remplaza el caracter en pos por value.
 
         Parametros:
-            a_modificar : str -> el string que se va a modificar
-            pos : int -> la posición del caracter que se debe actualizar
-            value : str -> el valor que se debe colocar en pos
+            a_modificar : str 
+                El string que se va a modificar.
+            pos : int 
+                Posición del caracter a modificar.
+            value : str
+                El valor a colocar en a_mdificar[pos].
     """
     output = ''
     for i in range(len(a_modificar)):
@@ -27,91 +30,66 @@ def renovar_string(a_modificar, pos, value):
 def incrementar_casilla(tablero, linea_casilla, pos_x_casilla):
     """Incrementa en 1 una casilla dada del tablero.
 
-        Para incrementar es necesario utilizar el método renovar_string, dado que los strings no son mutables.
-        El método se encarga de pasar los valores necesarios para crear el nuevo string al método mencionado.
+        Para incrementar utiliza el método renovar_string.
+        Este método se encarga de llamarlo con los valores necesarios.
 
         Parámetros:
             tablero : list,
-            linea_casilla : int,
+                El tablero a modificar.
+            linea_casilla : int
+                Linea dónde se encuentra la casilla.
             pos_x_casilla : int
-
-        Ejemplo:
-            tablero -> ['00000', '0*000', '00000']
-
-            linea_casilla = 1
-            pos_x_casilla = 0
-
-            resultado -> ['00000', '1*000', '00000']
+                Posición de la casilla en la linea.
     """
+    # obtiene el valor a darle a la casilla
     valor_casilla_incrementada = str(int(tablero[linea_casilla][pos_x_casilla]) + 1)
+    # actualiza el string
     tablero[linea_casilla] = renovar_string(tablero[linea_casilla], pos_x_casilla, valor_casilla_incrementada)
 
 
-def incrementar_linea(tablero, linea_mina, centro):
-    """Recibe la posición de una línea en el tablero + un pivot a partir del cual actualiza las casillas a izq/der/el mismo pivot, si no son minas.
+def incrementar_linea(tablero, linea_mina, pivot):
+    """Incrementa la cantidad de minas en pivot - 1, pivot, pivot + 1.
 
-        El mismo verifica que existan casillas a izquierda/derecha y que ninguna sea una mina (incluyendo el pivot).
-        Luego de las verificaciones, incrementa en 1 la cantidad de minas en cada casilla.
+        Verifica que existan casillas a izquierda/derecha del pivot.
+        Verifica que ninguna tenga una mina.
 
         Parámetros:
-            tablero : list 
-
-            linea_mina : int -> la línea del tablero que se va a modificar
-
-            centro : int -> el pivot al partir del cuál se actualizan las casillas alrededor
-
-        Ejemplo:
-            tablero -> ['00000', '0*000', '00000']
-
-            linea_mina = 1
-            centro = 1
-
-            resultado -> ['00000', '1*100', '00000']
+            tablero : list
+                El tablero a modificar.
+            linea_mina : int
+                Línea del tablero que se va a modificar.
+            pivot : int 
+                A partir de donde se buscan las casillas a izq/der.
     """
-    # si hay casilla a la izquierda
-    if centro - 1 >= 0:
-        # si no es una mina
-        if not tablero[linea_mina][centro - 1] == '*':
-            # incremento
-            incrementar_casilla(tablero, linea_mina, centro - 1)
-            
-    # si hay casilla a la derecha
-    if centro + 1 < len(tablero[linea_mina]):
-        # si no es una mina
-        if not tablero[linea_mina][centro + 1] == '*':
-            # incremento
-            incrementar_casilla(tablero, linea_mina, centro + 1)
+    # si hay casilla a la izquierda y no es una mina
+    if pivot - 1 >= 0 and tablero[linea_mina][pivot - 1] is not '*':
+        incrementar_casilla(tablero, linea_mina, pivot - 1)
 
-    # si el 'centro' no es la casilla de la mina misma
-    if not tablero[linea_mina][centro] == '*':
-        incrementar_casilla(tablero, linea_mina, centro)
+    # si hay casilla a la derecha y no es una mina
+    if pivot + 1 < len(tablero[linea_mina]) and  tablero[linea_mina][pivot + 1] is not '*':
+        incrementar_casilla(tablero, linea_mina, pivot + 1)
+
+    # si el 'pivot' no es una mina
+    if tablero[linea_mina][pivot] is not '*':
+        incrementar_casilla(tablero, linea_mina, pivot)
 
 
 # recibe la posicion de una mina e incrementa en 1 todas las casillas alrededor (que no sean minas)
 def incrementar_minas(tablero, linea_mina, pos):
-    """Recibe la posición de una mina en el tablero y actualiza la cantidad de minas en las casillas de alrededor
+    """Incrementa en 1 las casillas alrededor de una mina.
 
-        El método recibe la posición de la mina en el tablero y debe actualizar:
-            * Las casillas de la izquierda/derecha (queda en manos del método incrementar_linea)
-            * Las líneas de arriba/abajo.
-        El método verifica los límites de arriba/abajo.
-        El método NO verifica los límites a izquierda/derecha. Eso queda en manos del método incrementar_linea
+        Recibe la posición de la mina en el tablero y:
+            * Verifica los límites arriba/abajo.
+            * Llama al método incrementar_linea como corresponda.
 
         Parámetros:
-            tablero : list 
-            
-            linea_mina : int -> linea donde está la mina
-            pos : int -> casilla de la línea dónde está la mina
-
-        Ejemplos:
-            tablero -> ['-----', '-*---', '-----']
-
-            linea_mina = 1
-            pos = 1
-
-            resultado -> ['111--', '1*1--', '111--']            
+            tablero : list
+                El tablero a modificar.
+            linea_mina : int
+                Linea donde está la mina.
+            pos : int
+                Casilla de la línea dónde está la mina.       
     """
-
     # si hay linea arriba
     if linea_mina - 1 >= 0:
         incrementar_linea(tablero, linea_mina - 1, pos)
@@ -125,17 +103,14 @@ def incrementar_minas(tablero, linea_mina, pos):
 
 
 def preparar_tablero(tablero):
-    """Modifica el tablero de forma tal que los '-' sean remplazados por '0'
+    """Modifica el tablero, remplazando '-' por '0'.
 
-        Esta función facilita la utilización del método 'incrementar_casilla'
-        y a su vez, que las casillas que no tengan minas alrededor no queden en '-'
-        luego del llamado a 'contar_minas'
+        Facilita la utilización del método 'incrementar_casilla'.
+        Evita que las casillas sin minas alrededor queden en '-'.
 
         Parámetros:
-            tablero : list -> ['-----', '-*---', ....]
-
-        Output:
-            tablero -> ['00000', '0*000', ....]
+            tablero : list
+                El tablero a modificar.
     """
     # recorre cada línea
     for i in range(len(tablero)):
@@ -144,10 +119,11 @@ def preparar_tablero(tablero):
 
 
 def contar_minas(tablero):
-    """Modifica el tablero de forma tal que cada casilla muestre el número de minas alrededor
+    """Modifica el tablero para que cada casilla muestre el número de minas alrededor.
 
         Parámetros:
-            tablero : list -> ['-----', '-*---', ....]
+            tablero : list
+                El tablero a modificar.
     """
     preparar_tablero(tablero)
 
@@ -161,10 +137,11 @@ def contar_minas(tablero):
 
 
 def imprimir_tablero(tablero):
-    """Imprime el tablero en forma de matriz
-    
+    """Imprime el tablero en forma de matriz.
+
         Parámetros:
             tablero : list
+                El tablero a imprimir.
     """
     # recorre cada línea
     for i in range(len(tablero)):
@@ -183,5 +160,3 @@ print('DESPUÉS')
 print()
 imprimir_tablero(tablero)
 print()
-
-
