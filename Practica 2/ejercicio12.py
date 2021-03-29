@@ -11,9 +11,9 @@ def renovar_string(a_modificar, pos, value):
     """Recibe un string y remplaza el caracter en pos por value.
 
         Parametros:
-            a_modificar : str 
+            a_modificar : str
                 El string que se va a modificar.
-            pos : int 
+            pos : int
                 Posición del caracter a modificar.
             value : str
                 El valor a colocar en a_mdificar[pos].
@@ -42,9 +42,15 @@ def incrementar_casilla(tablero, linea_casilla, pos_x_casilla):
                 Posición de la casilla en la linea.
     """
     # obtiene el valor a darle a la casilla
-    valor_casilla_incrementada = str(int(tablero[linea_casilla][pos_x_casilla]) + 1)
+    valor_casilla_incrementada = str(
+            int(tablero[linea_casilla][pos_x_casilla]) + 1
+        )
     # actualiza el string
-    tablero[linea_casilla] = renovar_string(tablero[linea_casilla], pos_x_casilla, valor_casilla_incrementada)
+    tablero[linea_casilla] = renovar_string(
+            tablero[linea_casilla],
+            pos_x_casilla,
+            valor_casilla_incrementada
+        )
 
 
 def incrementar_linea(tablero, linea_mina, pivot):
@@ -58,7 +64,7 @@ def incrementar_linea(tablero, linea_mina, pivot):
                 El tablero a modificar.
             linea_mina : int
                 Línea del tablero que se va a modificar.
-            pivot : int 
+            pivot : int
                 A partir de donde se buscan las casillas a izq/der.
     """
     # si hay casilla a la izquierda y no es una mina
@@ -66,15 +72,15 @@ def incrementar_linea(tablero, linea_mina, pivot):
         incrementar_casilla(tablero, linea_mina, pivot - 1)
 
     # si hay casilla a la derecha y no es una mina
-    if pivot + 1 < len(tablero[linea_mina]) and  tablero[linea_mina][pivot + 1] is not '*':
-        incrementar_casilla(tablero, linea_mina, pivot + 1)
+    if pivot + 1 < len(tablero[linea_mina]):
+        if tablero[linea_mina][pivot + 1] is not '*':
+            incrementar_casilla(tablero, linea_mina, pivot + 1)
 
     # si el 'pivot' no es una mina
     if tablero[linea_mina][pivot] is not '*':
         incrementar_casilla(tablero, linea_mina, pivot)
 
 
-# recibe la posicion de una mina e incrementa en 1 todas las casillas alrededor (que no sean minas)
 def incrementar_minas(tablero, linea_mina, pos):
     """Incrementa en 1 las casillas alrededor de una mina.
 
@@ -88,7 +94,7 @@ def incrementar_minas(tablero, linea_mina, pos):
             linea_mina : int
                 Linea donde está la mina.
             pos : int
-                Casilla de la línea dónde está la mina.       
+                Casilla de la línea dónde está la mina
     """
     # si hay linea arriba
     if linea_mina - 1 >= 0:
