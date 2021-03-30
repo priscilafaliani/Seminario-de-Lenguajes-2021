@@ -1,13 +1,5 @@
 def es_heterograma(palabra):
-    caracteres = {}
-    
-    for car in palabra:
-        if car not in caracteres:
-            caracteres[car] = 1
-        else:
-            return False
-    return True
-
+   return len(set(palabra)) == len(palabra) 
 
 palabra = input('palabra: ')
 
