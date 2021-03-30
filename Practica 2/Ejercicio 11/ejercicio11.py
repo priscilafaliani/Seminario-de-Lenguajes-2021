@@ -16,8 +16,9 @@ def contar_tabs_al_comienzo(categoria):
             espacios = 0
     return tabs
 
+
 def parse_categorias(categorias):
-    """Retorna un una lista de dicts a partir de un string que denota categorias y subcategorias
+    """Retorna un una lista a partir de un string de categorias.
     
         Parametros:
             categorias : str -> un texto con la forma:
@@ -31,7 +32,13 @@ def parse_categorias(categorias):
                 ...
             
         Return:
-            list : [{'nombre': str(nombre_categoria), 'subcategorias': [{(mismo tipo de dict)}, ...]}, ...}]
+            list : [
+                {'nombre': str(nombre_categoria), 'subcategorias': [
+                    {(mismo tipo de dict)}, 
+                    ...
+                ]}, 
+                ...
+            ]
     """
 
     # separa el string en lineas
@@ -46,7 +53,6 @@ def parse_categorias(categorias):
     categoria_actual = [parsed]
 
     # Nombre de la categoria anterior para comparaciones
-    # Inicializada de esta manera para que entre al primer loop sin problemas
     categoria_anterior = {'nombre': ''}
 
     for categoria in categorias:
@@ -84,8 +90,9 @@ def parse_categorias(categorias):
 
     return parsed
 
+
 def contar_subcategorias(categorias):
-    """Recibe un dict de categorias y retorna su numero total de subcategorias
+    """Recibe un dict de categorias. Retorna total de subcategorias.
     
         Parametros:
             dict -> {'nombre': str(), 'subcategorias' : list()}
@@ -95,6 +102,7 @@ def contar_subcategorias(categorias):
     for categoria in categorias['subcategorias']:
         total = total + contar_subcategorias(categoria)
     return total
+
 
 def imprimir_categorias(categorias):
     """Imprime las categorias principales + cantidad de subcategoria + cada una de ellas."""
