@@ -1,0 +1,5 @@
+Este código da error cuando se invoca a la “función pasado” y no así a la “función futuro”. 
+
+Explicá por qué da error en una y no en la otra.
+
+Proponé la solución para la “función pasado” que no sea pasar por parámetros a la variable edad como lo hace la “función futuro”.

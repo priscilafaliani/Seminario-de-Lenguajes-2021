@@ -1,0 +1,2 @@
+a- Explicá por qué este código da error. Modificá el código de manera tal que permita solucionar el problema y que el programa realice lo que dice hacer.
+b- Si los valores del diccionario fuesen tuplas, ¿sería lo mismo? Justifica la respuesta.
